@@ -41,27 +41,29 @@
   }
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
   background: var(--bg);
   background-image: radial-gradient(60rem 28rem at 50% -8rem, var(--glow), transparent 70%);
   background-repeat: no-repeat;
   color: var(--text);
   font: 400 1.0625rem/1.55 var(--body);
 }
-.wrap { max-width: 34rem; margin: 0 auto; padding: 2.5rem 1.25rem 3rem; }
+.wrap { max-width: 34rem; margin: 0 auto; padding: 2.5rem max(1.25rem, env(safe-area-inset-right)) calc(3rem + env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left)); overflow-x: clip; }
 .hero { text-align: center; padding: 1.5rem 0 1.25rem; }
 .eyebrow { margin: 0 0 .75rem; letter-spacing: .2em; text-transform: uppercase; font-size: .75rem; color: var(--gold); font-weight: 700; }
-h1 { font: 600 clamp(2.6rem, 12vw, 4rem)/1.02 var(--display); margin: 0; }
+h1 { overflow-wrap: break-word; font: 600 clamp(2.3rem, 11vw, 4rem)/1.02 var(--display); margin: 0; }
 h1 .yr { display: block; color: var(--gold); font-weight: 400; font-size: .55em; margin-top: .25em; letter-spacing: .08em; }
 .ticker { display: inline-block; margin: 1.25rem 0 0; padding: .4rem .9rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: .95rem; }
 .ticker strong { color: var(--gold); font-size: 1.15em; }
 .facts { margin: 0 0 1.5rem; display: grid; gap: 0; border-top: 1px solid var(--line); }
-.facts div { display: grid; grid-template-columns: 6.5rem 1fr; gap: .75rem; padding: .9rem 0; border-bottom: 1px solid var(--line); }
+.facts div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: .75rem; padding: .9rem 0; border-bottom: 1px solid var(--line); }
 .facts dt { color: var(--muted); font-size: .85rem; text-transform: uppercase; letter-spacing: .1em; padding-top: .2rem; }
-.facts dd { margin: 0; }
+.facts dd { margin: 0; overflow-wrap: anywhere; }
 .muted { color: var(--muted); }
 a { color: var(--gold); text-underline-offset: 3px; }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: 1rem; padding: 1.5rem 1.25rem; box-shadow: 0 0 3rem -1rem var(--glow); }
@@ -106,8 +108,8 @@ legend { padding: 0; margin-bottom: .6rem; font-weight: 500; }
 .hero { position: relative; }
 .hero > :not(.burst) { position: relative; z-index: 1; }
 .burst { position: absolute; width: 7rem; height: 7rem; opacity: .4; z-index: 0; animation: pulse 5s ease-in-out infinite; }
-.b1 { left: -2rem; top: -.5rem; }
-.b2 { right: -2rem; top: 3rem; width: 5rem; height: 5rem; animation-delay: -2.5s; }
+.b1 { left: -.5rem; top: -.5rem; }
+.b2 { right: -.25rem; top: 3rem; width: 5rem; height: 5rem; animation-delay: -2.5s; }
 .diyas { display: flex; justify-content: center; align-items: flex-end; gap: .9rem; margin-top: 2.25rem; }
 .d { width: 3.4rem; height: auto; overflow: visible; }
 .d .flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker 1.6s ease-in-out infinite; }
@@ -118,3 +120,22 @@ legend { padding: 0; margin-bottom: .6rem; font-weight: 500; }
 @keyframes pulse { 0%, 100% { transform: scale(.9); opacity: .25; } 50% { transform: scale(1.08); opacity: .5; } }
 @keyframes flicker { 0%, 100% { transform: scale(1, 1); } 40% { transform: scale(.92, 1.08); } 70% { transform: scale(1.05, .95); } }
 @media (prefers-reduced-motion: reduce) { .garland .bulbs circle, .burst, .d .flame { animation: none !important; } }
+
+@media (max-width: 480px) {
+  body { font-size: 1rem; }
+  .wrap { padding-top: 2rem; }
+  .garland { margin-top: -2rem; }
+  .card { padding: 1.25rem 1rem; border-radius: .9rem; }
+  .choices { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .choices label { flex: none; min-width: 0; }
+  .choices span { min-height: 3rem; display: flex; align-items: center; justify-content: center; padding: .6rem .5rem; }
+  .facts div { padding: .75rem 0; }
+  .burst { width: 4.5rem; height: 4.5rem; }
+  .b2 { width: 3.5rem; height: 3.5rem; }
+  .d { width: 2.6rem; } .d2, .d4 { width: 3.1rem; } .d3 { width: 3.6rem; }
+  .diyas { gap: .6rem; }
+}
+@media (max-width: 480px) {
+  .b1 { top: -1.25rem; left: 0; }
+  .b2 { top: -.75rem; right: 0; }
+}
