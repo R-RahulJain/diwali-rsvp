@@ -11,7 +11,6 @@ window.CONFIG = {
     venueName: "Block 6, Flat 610, Lohitha's Apartment",
     venueArea: "Suncity Apartments, Bengaluru",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Suncity+Apartments+Bengaluru",
-    dressCode: "Ethnic",
-    liquorNote: "The liquor bill will be split among the guests."
+    dressCode: "Ethnic"
   }
 };

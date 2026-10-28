@@ -13,14 +13,40 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="diya" viewBox="0 0 60 44">
+        <path class="flame" d="M30 2 C36 10 38 15 30 21 C22 15 24 10 30 2Z" style="fill:var(--flame)"/>
+        <path d="M30 9 C33 13 33 16 30 19 C27 16 27 13 30 9Z" style="fill:var(--flame-core)"/>
+        <path d="M3 22 Q30 26 57 22 Q54 42 30 42 Q6 42 3 22Z" style="fill:var(--diya)"/>
+        <ellipse cx="30" cy="22" rx="27" ry="3.2" style="fill:var(--diya-rim)"/>
+        <path d="M14 31 Q30 36 46 31" style="fill:none;stroke:var(--diya-rim);stroke-width:1.5;stroke-linecap:round;opacity:.7"/>
+      </symbol>
+      <symbol id="burst" viewBox="-50 -50 100 100">
+        <g style="stroke:var(--spark);stroke-width:2;stroke-linecap:round;fill:none">
+          <path d="M0-14V-44M0 14V44M-14 0H-44M14 0H44M10-10L31-31M-10-10L-31-31M10 10L31 31M-10 10L-31 31"/>
+          <path d="M0-24V-30M0 24V30M-24 0H-30M24 0H30" opacity=".6"/>
+        </g>
+        <g style="fill:var(--spark)"><circle cx="0" cy="-48" r="2.2"/><circle cx="0" cy="48" r="2.2"/><circle cx="-48" cy="0" r="2.2"/><circle cx="48" cy="0" r="2.2"/><circle cx="34" cy="-34" r="2.2"/><circle cx="-34" cy="-34" r="2.2"/><circle cx="34" cy="34" r="2.2"/><circle cx="-34" cy="34" r="2.2"/></g>
+      </symbol>
+    </defs>
+  </svg>
   <main class="wrap">
+    <svg class="garland" viewBox="0 0 480 60" aria-hidden="true" focusable="false">
+      <path d="M0 8 Q120 52 240 8 Q360 52 480 8" class="wire"/>
+      <g class="bulbs">
+        <circle cx="40" cy="25" r="4.5"/><circle cx="80" cy="32" r="4.5"/><circle cx="120" cy="35" r="4.5"/><circle cx="160" cy="32" r="4.5"/><circle cx="200" cy="25" r="4.5"/>
+        <circle cx="240" cy="13" r="4.5"/>
+        <circle cx="280" cy="25" r="4.5"/><circle cx="320" cy="32" r="4.5"/><circle cx="360" cy="35" r="4.5"/><circle cx="400" cy="32" r="4.5"/><circle cx="440" cy="25" r="4.5"/>
+      </g>
+    </svg>
     <header class="hero">
+      <svg class="burst b1" aria-hidden="true" focusable="false"><use href="#burst"/></svg>
+      <svg class="burst b2" aria-hidden="true" focusable="false"><use href="#burst"/></svg>
       <p class="eyebrow">You are invited</p>
       <h1><span id="ev-name">Diwali Party</span> <span class="yr" id="ev-year">2026</span></h1>
       <p class="ticker" id="ticker" aria-live="polite" hidden><strong id="ticker-n">0</strong> <span id="ticker-label">guests coming</span></p>
     </header>
-
-    <p class="liquor" id="liquor" role="note"></p>
 
     <dl class="facts">
       <div><dt>Date</dt><dd id="ev-date"></dd></div>
@@ -62,6 +88,35 @@
           </div>
         </fieldset>
 
+        <div id="prefs" hidden>
+          <fieldset>
+            <legend id="q-liquor">Liquor <span class="hint">(pick any)</span></legend>
+            <div class="choices chips" data-name="liquor">
+              <label><input type="checkbox" name="liquor" value="Vodka"><span>Vodka</span></label>
+              <label><input type="checkbox" name="liquor" value="Gin"><span>Gin</span></label>
+              <label><input type="checkbox" name="liquor" value="Wine"><span>Wine</span></label>
+              <label><input type="checkbox" name="liquor" value="Mead"><span>Mead</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Non-alcoholic <span class="hint">(pick any)</span></legend>
+            <div class="choices chips">
+              <label><input type="checkbox" name="soft_drinks" value="Red Bull"><span>Red Bull</span></label>
+              <label><input type="checkbox" name="soft_drinks" value="Diet Coke"><span>Diet Coke</span></label>
+              <label><input type="checkbox" name="soft_drinks" value="Sprite"><span>Sprite</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Snacks <span class="hint">(pick any)</span></legend>
+            <div class="choices chips">
+              <label><input type="checkbox" name="snacks" value="Doritos"><span>Doritos</span></label>
+              <label><input type="checkbox" name="snacks" value="Lays"><span>Lays</span></label>
+              <label><input type="checkbox" name="snacks" value="Peanuts"><span>Peanuts</span></label>
+              <label><input type="checkbox" name="snacks" value="Popcorn"><span>Popcorn</span></label>
+            </div>
+          </fieldset>
+        </div>
+
         <div class="hp" aria-hidden="true">
           <label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         </div>
@@ -71,6 +126,13 @@
       </form>
     </section>
 
+    <div class="diyas" aria-hidden="true">
+      <svg class="d d1" viewBox="0 0 60 44" focusable="false"><use href="#diya"/></svg>
+      <svg class="d d2" viewBox="0 0 60 44" focusable="false"><use href="#diya"/></svg>
+      <svg class="d d3" viewBox="0 0 60 44" focusable="false"><use href="#diya"/></svg>
+      <svg class="d d4" viewBox="0 0 60 44" focusable="false"><use href="#diya"/></svg>
+      <svg class="d d5" viewBox="0 0 60 44" focusable="false"><use href="#diya"/></svg>
+    </div>
     <footer class="foot">Invite only. Please don't forward your link.</footer>
   </main>
   <script src="config.js"></script>
