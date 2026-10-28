@@ -1,7 +1,7 @@
 // Everything you might edit lives here.
 window.CONFIG = {
   // Paste the Apps Script web app URL (ends in /exec) after deploying.
-  APPS_SCRIPT_URL: "PASTE_WEB_APP_URL_HERE",
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzKNg-7IFdn5Hz5VE3_z4JQSYDFd0edLnJ2bJdFSkxe1va4kUzELcvFZcOvZgZL9Z3dbw/exec",
 
   EVENT: {
     name: "Diwali Party",
