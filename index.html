@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diwali Party 2026</title>
+  <meta name="description" content="You're invited to a Diwali party, Monday 9 November 2026, 7 pm, Bengaluru.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark light">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <p class="eyebrow">You are invited</p>
+      <h1><span id="ev-name">Diwali Party</span> <span class="yr" id="ev-year">2026</span></h1>
+      <p class="ticker" id="ticker" aria-live="polite" hidden><strong id="ticker-n">0</strong> <span id="ticker-label">guests coming</span></p>
+    </header>
+
+    <p class="liquor" id="liquor" role="note"></p>
+
+    <dl class="facts">
+      <div><dt>Date</dt><dd id="ev-date"></dd></div>
+      <div><dt>Time</dt><dd id="ev-time"></dd></div>
+      <div><dt>Venue</dt><dd><span id="ev-venue"></span><br><span id="ev-area" class="muted"></span><br><a id="ev-map" href="#" target="_blank" rel="noopener">Open in Google Maps</a></dd></div>
+      <div><dt>Dress code</dt><dd id="ev-dress"></dd></div>
+    </dl>
+
+    <section class="card" id="rsvp" aria-live="polite">
+      <p class="muted" id="state-loading">Loading your invite…</p>
+
+      <p id="state-invalid" hidden>This invite link isn't valid, check with the host</p>
+
+      <p id="state-error" class="error" hidden>Couldn't reach the server. Check your connection and refresh.</p>
+
+      <div id="state-summary" hidden>
+        <h2 id="sum-title"></h2>
+        <p id="sum-text"></p>
+        <button type="button" class="btn ghost" id="change-btn">Change my RSVP</button>
+      </div>
+
+      <form id="form" novalidate hidden>
+        <h2 id="greet"></h2>
+
+        <fieldset>
+          <legend id="q-coming">Are you coming?</legend>
+          <div class="choices">
+            <label><input type="radio" name="response" value="Yes"><span>Yes</span></label>
+            <label><input type="radio" name="response" value="No"><span>No</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset id="food-set" hidden>
+          <legend id="q-food">Food preference</legend>
+          <div class="choices">
+            <label><input type="radio" name="food" value="Veg"><span>Veg</span></label>
+            <label><input type="radio" name="food" value="Non-veg"><span>Non-veg</span></label>
+            <label id="mixed" hidden><input type="radio" name="food" value="Mixed"><span>Mixed</span></label>
+          </div>
+        </fieldset>
+
+        <div class="hp" aria-hidden="true">
+          <label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <p class="error" id="form-error" role="alert" hidden></p>
+        <button type="submit" class="btn" id="submit-btn">Send RSVP</button>
+      </form>
+    </section>
+
+    <footer class="foot">Invite only. Please don't forward your link.</footer>
+  </main>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
