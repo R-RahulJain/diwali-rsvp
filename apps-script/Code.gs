@@ -1,8 +1,13 @@
 // RSVP web app. Bound to the Sheet that has a "Guests" tab:
-// name | party_size | code | link | (timestamp | response | food are added automatically)
+// name | party_size | code | link | (timestamp, response, food, liquor, soft_drinks, snacks are added automatically)
 
 var GUESTS_SHEET = "Guests";
-var RESPONSE_HEADERS = ["timestamp", "response", "food"];
+var RESPONSE_HEADERS = ["timestamp", "response", "food", "liquor", "soft_drinks", "snacks"];
+var OPTIONS = {
+  liquor: ["Vodka", "Gin", "Wine", "Mead"],
+  soft_drinks: ["Red Bull", "Diet Coke", "Sprite"],
+  snacks: ["Doritos", "Lays", "Peanuts", "Popcorn"]
+};
 
 function doGet(e) {
   var code = normCode_(e && e.parameter && e.parameter.g);
@@ -21,7 +26,10 @@ function doGet(e) {
     name: String(r[ctx.col.name]).trim(),
     party_size: toSize_(r[ctx.col.party_size]),
     response: String(r[ctx.col.response] || "").trim(),
-    food: String(r[ctx.col.food] || "").trim()
+    food: String(r[ctx.col.food] || "").trim(),
+    liquor: splitList_(r[ctx.col.liquor]),
+    soft_drinks: splitList_(r[ctx.col.soft_drinks]),
+    snacks: splitList_(r[ctx.col.snacks])
   });
 }
 
@@ -48,8 +56,15 @@ function doPost(e) {
       var allowed = size > 1 ? ["Veg", "Non-veg", "Mixed"] : ["Veg", "Non-veg"];
       if (allowed.indexOf(food) < 0) return json_({ ok: false, error: "bad food" });
     }
+    var picks = {};
+    Object.keys(OPTIONS).forEach(function (k) {
+      var list = response === "Yes" && Array.isArray(body[k]) ? body[k] : [];
+      picks[k] = list.filter(function (v) { return OPTIONS[k].indexOf(v) >= 0; });
+    });
     var rowNum = i + 2; // rows[] starts after the header row
-    ctx.sheet.getRange(rowNum, ctx.col.timestamp + 1, 1, 3).setValues([[new Date(), response, food]]);
+    var vals = { timestamp: new Date(), response: response, food: food,
+      liquor: picks.liquor.join(", "), soft_drinks: picks.soft_drinks.join(", "), snacks: picks.snacks.join(", ") };
+    RESPONSE_HEADERS.forEach(function (h) { ctx.sheet.getRange(rowNum, ctx.col[h] + 1).setValue(vals[h]); });
     SpreadsheetApp.flush();
     return json_({ ok: true });
   } finally {
@@ -70,7 +85,7 @@ function load_() {
     }
   });
   var col = {};
-  ["name", "party_size", "code", "timestamp", "response", "food"].forEach(function (h) { col[h] = headers.indexOf(h); });
+  ["name", "party_size", "code"].concat(RESPONSE_HEADERS).forEach(function (h) { col[h] = headers.indexOf(h); });
   if (col.name < 0 || col.party_size < 0 || col.code < 0) throw new Error("Guests tab needs name, party_size, code columns");
   var n = sheet.getLastRow() - 1;
   var rows = n > 0 ? sheet.getRange(2, 1, n, headers.length).getValues() : [];
@@ -85,6 +100,7 @@ function findRow_(ctx, code) {
   return -1;
 }
 
+function splitList_(v) { return String(v || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean); }
 function normCode_(c) { return String(c || "").trim().toUpperCase(); }
 function toSize_(v) { var n = parseInt(v, 10); return n > 0 ? n : 1; }
 function json_(obj) {

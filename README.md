@@ -4,7 +4,7 @@ Single-page RSVP site. Static HTML/CSS/JS on GitHub Pages; Google Sheet + Apps S
 
 ## Setup
 
-1. **Create a Google Sheet.** Rename the first tab to `Guests` with headers in row 1: `name`, `party_size`, `code`, `link`. (The script adds `timestamp`, `response`, `food` itself.)
+1. **Create a Google Sheet.** Rename the first tab to `Guests` with headers in row 1: `name`, `party_size`, `code`, `link`. (The script adds `timestamp`, `response`, `food`, `liquor`, `soft_drinks`, `snacks` itself.)
 2. **Add the scripts.** In the Sheet: Extensions > Apps Script. Paste `apps-script/Code.gs` into `Code.gs`. Add a second file (+ > Script) and paste `tools/make-codes.gs`. In `make-codes.gs` check `BASE_URL` matches your Pages URL.
 3. **Paste your guest list** into the `name` and `party_size` columns (e.g. `Adhi and Aarthi`, `2`). Leave `code` and `link` empty.
 4. **Generate links.** Reload the Sheet, then RSVP > Generate links (authorise on first run). Each guest gets a 6-character code and a full link in the `link` column. Copy each into WhatsApp. Running it again only fills missing codes.
